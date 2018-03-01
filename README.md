@@ -3,7 +3,9 @@
 + Production URL: <http://p2.kylepg.io
 
 ## Outside resources
-Bootstrap 4
++ Bootstrap 4
++ jQuery
++ Grunt + Grunt Plugins for Sass Build
 
 ## Code style divergences
 *list any divergences from PSR-1/PSR-2 and course guidelines on code style*

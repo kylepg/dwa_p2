@@ -1,0 +1,9 @@
+node_modules/
+.sass-cache/
+*.css.map
+assets/
+reference/
+design/
+.vscode
+Icon
+package-lock.json
