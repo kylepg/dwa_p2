@@ -40,7 +40,7 @@ require 'php/logic.php';
             <div class="col-md-6 by-player flex-column">
                 <form method='GET'>
                     <div class="form-group">
-                        <input type='text' name='player' value='<?=$playerSearch?>' class='mb-3'>
+                        <input type='text' name='player' value='<?= $form->prefill('player') ?>' class='mb-3'>
                         <input type='submit' value='Search' class='btn btn-primary ml-sm-3'>
                     </div>
                 </form>
@@ -66,7 +66,12 @@ require 'php/logic.php';
             </div>
         </div>
         <div class="row player-display mt-4">
-            <?php if (sizeof($search->results) == 0) : ?>
+            <?php if ($form->hasErrors && $teamSearch == null) : ?>
+                <div class='alert alert-danger'>
+                    <?= $errors[0] ?>
+                </div>
+            <?php endif ?>
+            <?php if (sizeof($search->results) == 0 && ! $form->hasErrors) : ?>
             <p>
                 <?= $playerSearch ?> not found.
             </p>

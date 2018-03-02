@@ -166,6 +166,7 @@ class Form
             'email' => ' is not a valid email address.',
             'min' => ' has to be greater than ' . $parameter . '.',
             'max' => ' has to be less than ' . $parameter . '.',
+            'charMin' => ' cannot be blank.'
         ];
 
         # If a message for the rule was found, use that, otherwise default to " has an error"
@@ -250,4 +251,16 @@ class Form
     {
         return floatval($value) < floatval($parameter);
     }
+
+    /**
+     * Returns value if the given value character length is GREATER THAN (non-inclusive) the given parameter
+     * @param $value
+     * @param $parameter
+     * @return bool
+     */
+    protected function charMin($value, $parameter)
+    {
+        return strlen($value) > strlen($parameter);
+    }
+
 }

@@ -92,6 +92,11 @@ body {
 .btn-primary {
     background-color: #41b0ac;
     border-color: #41b0ac;
+    cursor: pointer;
+    &:hover {
+        border-color: #628c8c;
+        background-color: #628c8c;
+    }
 }
 
 .nav {
