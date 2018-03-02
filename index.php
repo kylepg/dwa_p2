@@ -66,7 +66,7 @@ require 'php/logic.php';
             </div>
         </div>
         <div class="row player-display mt-4">
-            <?php if ($form->hasErrors && $teamSearch == null) : ?>
+            <?php if ($form->hasErrors && $teamSearch == null && $playerSearch !== null) : ?>
                 <div class='alert alert-danger'>
                     <?= $errors[0] ?>
                 </div>
