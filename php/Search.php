@@ -2,7 +2,6 @@
 
 class Search
 {
-    # Get team and player data
     private $playerJson;
     private $playerInfo;
     private $teamJson;
@@ -22,13 +21,13 @@ class Search
         $this->teamInfo = json_decode($this->teamJson);
         $this->teamInfo = $this->teamInfo->tms->t;
 
-        if ($teamSearch !== null) { // Filtered by team
+        if ($teamSearch !== null) {
             $this->filterTeam($teamSearch);
             $this->activeTab['filters'] = 'active';
-        } elseif ($playerSearch !== null) { // Searched for a player
+        } elseif ($playerSearch !== null) { 
             $this->searchPlayer($playerSearch);
             $this->activeTab['search'] = 'active';
-        } else { // Initial load
+        } else { 
             $this->filterTeam('all');
             $this->activeTab['search'] = 'active';
         }
