@@ -24,55 +24,69 @@ require 'php/logic.php';
 
     <body>
         <div class="container">
+            <h1 class="mt-4">NBA Player Search</h1>
             <div class="row mt-5">
                 <ul class="nav nav-tabs">
                     <li class="nav-item">
-                        <div class="nav-link active" data-menu="search" href=''>Search</div>
+                        <div class="nav-link <?= $search->activeTab['search'] ?>" data-menu="search" href=''>Search</div>
                     </li>
                     <li class="nav-item">
-                        <div class="nav-link" data-menu="filters" href=''>Filters</div>
+                        <div class="nav-link <?= $search->activeTab['filters'] ?>" data-menu="filters" href=''>Filters</div>
                     </li>
                 </ul>
             </div>
-            <div id="search" class="row player-menu">
+            <div id="search" class="row player-menu <?= $search->activeTab['search'] ?>">
                 <div class="col-12">
-                    <h3 class="">Search for a player</h3>
+                    <h3 class="">Search for an active player</h3>
                 </div>
                 <div class="col-md-6 by-player flex-column">
                     <form method='GET'>
                         <div class="form-group">
-                            <input type='dropdown' name='player' value=''></input>
-                            <input type='submit' value='Search' class='btn btn-primary'>
+                            <input type='search' name='player' value='<?=$playerSearch?>' class='mb-3'></input>
+                            <input type='submit' value='Search' class='btn btn-primary ml-sm-3'>
                         </div>
                     </form>
                 </div>
             </div>
-            <div id="filters" class="row player-menu">
+            <div id="filters" class="row player-menu <?= $search->activeTab['filters'] ?>">
                 <div class="col-12">
                     <h3 class="">Filter by team</h3>
                 </div>
                 <div class="col-md-12 p-3">
-                    <form method='GET' class="d-flex flex-column team">
-                        <form action="" method="post">
-                            <div class="form-group d-flex flex-wrap">
-                                <?php foreach ($teamList as $teamInfo => $teamObj) :?>
-                                <p>
-                                    <input type="checkbox" name="<?=$teamObj->ta ?>" value="true" ?> &nbsp;
-                                    <?=$teamObj->tc.' '.$teamObj->tn ?>
-                                </p>
-                                <?php endforeach ?>
-                            </div>
-                        </form>
-                        <input type='submit' value='Apply' class='btn btn-primary mx-auto mt-4'>
+                    <form method='GET'>
+                        <select name='team'>
+                            <option value='all'>All teams</option>
+                            <?php foreach ($teamList as $teamInfo => $teamObj) :?>
+                            <option <?= $teamSearch == $teamObj->ta ? ' selected="selected"' : '';?> value='<?=$teamObj->ta?>'>
+                                <?=$teamObj->tc.' '.$teamObj->tn ?>
+                            </option>
+                            <?php endforeach ?>
+                        </select>
+                        <label class='d-block mt-3' ><input type='checkbox'name='photos' value='hide' <?= $photos == 'hide' ? 'checked' : '' ?>> Hide photos</label>
+                        <input type='submit' value='Filter' class='btn btn-primary d-block mt-3'>
                     </form>
                 </div>
             </div>
             <div class="row player-display mt-4">
-                <?php foreach ($filter->results as $player) :?>
-                <div class="col-2">
-                    <p>
-                        <?= $player[1] ?>
-                    </p>
+                <?php if (sizeof($search->results) == 0) : ?>
+                <p>
+                    <?= $playerSearch ?> not found.
+                </p>
+                <?php endif ?>
+                <?php foreach ($search->results as $player) :?>
+                <div class="col-lg-4 col-sm-6 col-xs-12 player-wrap">
+                    <div class="player <?=$player[3]?>-border">
+                        <p class="<?=$player[3]?>-light">
+                            <?= $player[3] ?>
+                        </p>
+                        <p>
+                            <?= $player[1] ?>
+                        </p>
+                        <?php if ($photos == 'show') : ?>
+                        <img src="https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/<?=$player[0]?>.png" onerror="this.src='https://i.cdn.turner.com/nba/nba/.element/media/2.0/teamsites/celtics/media/generic-player-260x190.png';"
+                        />
+                        <?php endif ?>
+                    </div>
                 </div>
                 <?php endforeach ?>
             </div>

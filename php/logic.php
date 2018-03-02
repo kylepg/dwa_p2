@@ -1,12 +1,11 @@
 <?php
-require 'php/Filter.php';
+require 'php/Search.php';
 
-$player = $_GET['player'] ?? null;
-$team = $_GET['team'] ?? 'all';
+$playerSearch = $_GET['player'] ?? null;
+$teamSearch = $_GET['team'] ?? null;
+$photos= $_GET['photos'] ?? 'show';
 
-# Instantiate a new filter object
-$filter = new Filter($team, $player);
+$search = new Search($teamSearch, $playerSearch);
 
-# Use object to get data and return filtered array
-$teamList = $filter->teamInfo;
-$filteredResults = $filter->results;
+$teamList = $search->teamInfo;
+$searchResults = $search->results;
